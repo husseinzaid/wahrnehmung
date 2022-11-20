@@ -27,7 +27,7 @@ pygame.init()
 
 
 import numpy as np
-eingabe = '4,2,3,4,5,6,7,8,9,9'
+eingabe = '4,2,3,4,5,6,7,8'
 inteingabe =list(map(int, eingabe.split(",")))
 #print(inteingabe)
 einstellig_1 = [4, 9, 1, 7, 2, 2, 6, 5, 8, 3]
@@ -36,6 +36,13 @@ einstellig_1 = [4, 9, 1, 7, 2, 2, 6, 5, 8, 3]
 import numpy as np
 
 a = np.array(inteingabe)
+lena = a.size
+
+if lena < 10:
+    rest = 10 - lena
+    restVector = np.zeros(rest)
+    a = np.append(inteingabe,restVector)
+
 b = np.array(einstellig_1)
 a = list(a==b)
 count= a.count(True)

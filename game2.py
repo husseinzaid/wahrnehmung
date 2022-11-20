@@ -42,9 +42,12 @@ zweistellig_1 = [49,17,22,65,83]
 zweistellig_2 = [50,28,83,76,94]
 
 
+shortPause = 7
+longPause = 15
+
 
 header = ['SpielerName', '1te Sequenz 4-9-1-7-2-2-6-5-8-3', '2te Sequenz 5-0-2-8-8-3-7-6-9-4', '3te Sequenz 49-17-22-65-83' , '4te Sequenz 50-28-83-76-94']
-spielerName= "Hönemann"
+spielerName= "Futoon"
 dateiName = spielerName + ".csv"
 
 
@@ -79,7 +82,7 @@ while running:
     screen.fill((255, 255, 255))
     GAME_FONT.render_to(screen, (100, 200), "Die Eingabe Fenster erscheint nach 1 Minute", (0, 0, 0))
     pygame.display.flip()
-    time.sleep(7)
+    time.sleep(shortPause)
     screen.fill((255, 255, 255))
 
 
@@ -134,7 +137,7 @@ while running:
     screen.fill((255, 255, 255))
     GAME_FONT.render_to(screen, (150, 200), "Die Eingabe Fenster erscheint nach 2 Minuten", (0, 0, 0))
     pygame.display.flip()
-    time.sleep(15)
+    time.sleep(longPause)
     screen.fill((255, 255, 255))
 
     buttonunclicked = True
@@ -190,7 +193,7 @@ while running:
     screen.fill((255, 255, 255))
     GAME_FONT.render_to(screen, (150, 200), "Die Eingabe Fenster erscheint nach 1 Minute", (0, 0, 0))
     pygame.display.flip()
-    time.sleep(7)
+    time.sleep(shortPause)
     screen.fill((255, 255, 255))
 
     buttonunclicked = True
@@ -247,7 +250,7 @@ while running:
     screen.fill((255, 255, 255))
     GAME_FONT.render_to(screen, (150, 200), "Die Eingabe Fenster erscheint nach 2 Minuten", (0, 0, 0))
     pygame.display.flip()
-    time.sleep(15)
+    time.sleep(longPause)
     screen.fill((255, 255, 255))
 
     buttonunclicked = True
@@ -279,6 +282,7 @@ while running:
     screen.fill((255, 255, 255))
     GAME_FONT.render_to(screen, (150, 200), "Aufwiedersehen", (0, 0, 0))
     pygame.display.flip()
+    time.sleep(1)
     break
 
 
@@ -292,29 +296,64 @@ import numpy as np
 
 ersteEingabe =list(map(int, ersteEingabe.split(",")))
 a = np.array(ersteEingabe)
+
+lena = a.size
+
+if lena < 10:
+    rest = 10 - lena
+    restVector = np.zeros(rest)
+    a=np.append(ersteEingabe,restVector)
+
+
+
 b = np.array(einstellig_1)
 a = list(a==b)
 erste_Resultat= a.count(True)
 
 zweiteEingabe =list(map(int, zweiteEingabe.split(",")))
 a = np.array(zweiteEingabe)
+
+lena = a.size
+
+if lena < 10:
+    rest = 10 - lena
+    restVector = np.zeros(rest)
+    a=np.append(zweiteEingabe,restVector)
+
 b = np.array(einstellig_2)
 a = list(a==b)
 zweite_Resultat= a.count(True)
 
 dritteEingabe =list(map(int, dritteEingabe.split(",")))
 a = np.array(dritteEingabe)
+
+lena = a.size
+
+if lena < 5:
+    rest = 5 - lena
+    restVector = np.zeros(rest)
+    a=np.append(dritteEingabe,restVector)
+
 b = np.array(zweistellig_1)
 a = list(a==b)
 dritte_Resultat= a.count(True)
 
 vierteEingabe =list(map(int, vierteEingabe.split(",")))
 a = np.array(vierteEingabe)
+
+lena = a.size
+
+if lena < 5:
+    rest = 5 - lena
+    restVector = np.zeros(rest)
+    a=np.append(vierteEingabe,restVector)
+
 b = np.array(zweistellig_2)
 a = list(a==b)
 vierte_Resultat= a.count(True)
 
 thirdRow = ["Anzahl richtige Antworten" , str(erste_Resultat), str(zweite_Resultat) , str(dritte_Resultat), str(vierte_Resultat)]
+fouthRow = ["Prozent richtig erinnerte Ziffern" , str(erste_Resultat*10), str(zweite_Resultat*10), str(dritte_Resultat*20), str(vierte_Resultat*20), ]
 with open(dateiName, 'w', encoding='UTF8') as f:
     writer = csv.writer(f)
 
@@ -324,3 +363,5 @@ with open(dateiName, 'w', encoding='UTF8') as f:
     # write the data
     writer.writerow(secondRow)
     writer.writerow(thirdRow)
+    writer.writerow(fouthRow)
+
